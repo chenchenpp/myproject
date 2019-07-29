@@ -1,0 +1,83 @@
+<div class="layer_mask"></div>
+<div class="layer_preAssess">
+    <div class="preAssessTop">
+        <h2>修改被保险人人数及份数</h2>
+        <i class="preClose" ng-click="closePreAssess()"></i>
+    </div>
+    <div class="preAssessMain luggMain">
+        <p class="provide">
+            <span>保障说明</span>：提供24小时全球保障，无论是否乘车，只要发生保险合同约定的意外事故，
+            均属保险责任。
+        </p>
+        <div class="add-insuer-num">
+            <table class="add-insuerTab addAccident" width="100%" cellpadding="0" cellspacing="0">
+                <tr>
+                    <th width="25%">保障项目</th>
+                    <th width="25%">保额</th>
+                    <th width="25%">保险期间</th>
+                    <th width="25%">保费</th>
+                </tr>
+               <tr class="oneTr">
+                   <td class="borTd">意外身故残疾</td>
+                   <td class="borTd">5万元</td>
+                   <td rowspan="2">1年<br>
+                       （同车险起止日期）</td>
+                   <td rowspan="2">90元</td>
+               </tr>
+                <tr>
+                    <td>附加意外医疗</td>
+                    <td>0.5万元</td>
+                </tr>
+            </table>
+            <ul class="accident-that">
+                <li>每次事故门急诊限额2000元 </li>
+                <li>每次事故意外医疗免赔额100元</li>
+                <li>医疗费用给付比例80%</li>
+            </ul>
+            <div class="ticket-choose">
+                <div class="ticket-choose-self fl" id="forInsured" ng-class="{true:'ticket-choose-buy',false:''}[calReqDto.eadbuystyle== 1]" ng-click="choosediv(1)">只为<span class="underwriterNameInfo">{{calCommData.insuredEADName}}</span>购买</div>
+                <div class="ticket-choose-other fr" id="forOthers" ng-class="{true:'ticket-choose-buy',false:''}[calReqDto.eadbuystyle== 2]" ng-click="choosediv(2)">为<span class="underwriterNameOther">{{calCommData.insuredEADName}}</span>及其他人购买</div>
+            </div>
+            <div class="package_yesbuy">
+            <ul>
+                <li ng-if="calReqDto.eadbuystyle== 1">
+                    <label>投保份数：</label>
+                    <div class="but_quantity">
+                        <b class="add" id="add2" ng-click="calInsuredCopies(0)"></b>
+                        <input type="text"  class="text_box" maxlength="2" ng-blur="calCount('insuredcopies',30)" ng-model="calReqDto.insuredcopies">
+                        <span>份</span>
+                        <b class="reduce" id="reduce2" ng-click="calInsuredCopies(1)"></b>
+                    </div>
+                    <p>每辆车最多投保 30份！</p>
+                </li>
+                <li  ng-if="calReqDto.eadbuystyle== 2">
+                    <label>投保人数：</label>
+                    <div class="but_quantity">
+                        <b class="reduce" id="redRs" ng-click="calInsuredCount(0)"></b>
+                        <input type="text" class="text_box" maxlength="2" ng-blur="calCount('othernumber',9)"  ng-model="calReqDto.othernumber">
+                        <span>人</span>
+                        <b class="add" id="addRs" ng-click="calInsuredCount(1)"></b>
+                    </div>
+                    <p>最多可为9个人投保！</p>
+                </li>
+                <li class="multiple_li"  ng-if="calReqDto.eadbuystyle== 2">
+                    <label>每人投保份数：</label>
+                    <div class="but_quantity">
+                        <b class="add" id="addFs"  ng-click="calOtherCopies(0)"></b>
+                        <input type="text"  class="text_box" maxlength="2" ng-blur="calCount('othercopies',30)" ng-model="calReqDto.othercopies">
+                        <span>份</span>
+                        <b class="reduce"  id="redFs" ng-click="calOtherCopies(1)"></b>
+                    </div>
+                    <p>每人最多投保30份！</p>
+                </li>
+            </ul>
+            </div>
+            <p class="insuer-sum">车上人员补充意外险保费总计
+                <span class="span_11" id="sumYELpermium" ng-bind="calReqDto.eadsum"></span>
+                <span class="span_16 colorred">.00</span>
+                元
+            </p>
+            <div class="btn"><input type="button" value="确定" class="closeYEL" ng-click="closeAdd()"></div>
+        </div>
+    </div>
+</div>

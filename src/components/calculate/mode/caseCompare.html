@@ -1,0 +1,74 @@
+<div class="layer_mask"></div>
+<div class="layer_preAssess wid980">
+    <div class="preAssessTop" ng-click="closelayerCase()">
+        <h2>方案对比</h2>
+        <i class="preClose"></i>
+    </div>
+    <div class="preAssessMain luggMain compareMon">
+        <p class="thisMon">本年商业险保费<span class="redms">¥</span><b ng-bind="reBiamount.thisPremium"></b>
+            比去年{{(reBiamount.thisPremium - reBiamount.lastPremium) > 0?'增加':'降低'}}￥{{reBiamount.lastPremium - reBiamount.thisPremium  | absFilter | number:2 }}
+        </p>
+        <i class="dots"></i>
+        <div class="comTop">
+            <div class="kong"></div>
+            <ul class="caseTitle">
+                <li class="lastYear">
+                    <b>去年投保方案</b>
+                    <p>¥<b ng-bind="reBiamount.lastPremium"></b></p>
+                </li>
+                <li class="thisYear">
+                    <b>本年投保方案</b>
+                    <p>¥<b ng-bind="reBiamount.thisPremium"></b></p>
+                </li>
+            </ul>
+        </div>
+        <ul class="clearfix boxBI_ul comUl">
+            <li class="clearfix firstRowLi">
+                <span class="wid220">
+                    <b class="wid220">投保险种</b>
+                </span>
+                <div class="fl wid318">
+                    <b class="amounts">保险金额(元)</b>
+                    <b class="Iop">不计免赔</b>
+                    <b class="primLast">保费(元)</b>
+                </div>
+                <div class="fl wid392">
+                    <b class="amounts">保险金额(元)</b>
+                    <b class="Iop">不计免赔</b>
+                    <b class="primThis">保费(元)</b>
+                </div>
+            </li>
+            <li class="clearfix contentLi" ng-class="{'evenLi':$index%2==0,'oddLi':$index%2!=0,'item-last':$last}"
+                ng-repeat="rerisk in renewalList | hideFilter">
+                <span class="wid220">
+                    <b class="layerRisk" ng-bind="rerisk.kindName"></b>
+                </span>
+                <div class="fl wid318">
+                    <b class="wid100 tr" ng-bind="rerisk.lastYearAmount |amoutFilter :rerisk.kindCode:initData.seatCount "></b>
+                    <b class="Iop">
+                        <i ng-class="{'dui':rerisk.lastYearIop==1}"></i>
+                    </b>
+                    <b class="primLast" ng-bind="rerisk.lastYearPremium"></b>
+                </div>
+                <div class="fl wid392">
+                    <b class="wid100 tr" ng-bind="rerisk.thisYearAmount |amoutFilter :rerisk.kindCode:initData.seatCount "></b>
+                    <b class="Iop">
+                        <i ng-class="{'dui':rerisk.lastYearIop==1}"></i>
+                    </b>
+                    <b class="primThis pr">
+                        <i ng-bind="rerisk.thisYearPremium"></i>
+                        <div class="compre"
+                             ng-class="{'true':'up' ,'false':'decline'}[(rerisk.thisYearPremium - rerisk.lastYearPremium) > 0]">
+                            <i class="comone icon1"></i>
+                            <p class="mon">
+                                {{(rerisk.lastYearPremium - rerisk.thisYearPremium) | absFilter | number:2 }}
+                            </p>
+                            <i class="comtwo icon2"></i>
+                        </div>
+                    </b>
+                </div>
+            </li>
+        </ul>
+        <p class="mes tr fs14"><i></i>了解详情请拨打<span class="color4da0f0">400-1234567</span>转<span class="color4da0f0">2</span>或在线咨询</p>
+    </div>
+</div>

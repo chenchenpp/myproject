@@ -1,0 +1,494 @@
+<div class="step_div">
+    <ul class="clearfix step_2">
+        <li class="li_1"><em>1.</em>精确报价</li>
+        <li class="li_2"><em class="stepTwo"></em>提交订单</li>
+        <li class="li_3"><em>3.</em>支付</li>
+    </ul>
+</div>
+<div class="offer">
+    <div class="official">
+        <p class="mes"><i></i>隐私保护声明：您提供的个人信息仅供本次报价使用，不会泄露给任何第三方作其他用途
+            <a href="http://www.epicc.com.cn/fuwu/changjianwenti/qita/201412/t20141218_12882.html" target="_blank" class="fs12">隐私保护协议</a>
+        </p>
+        <div class="carBg">
+            <div class="region">
+                <div class="region-top">
+                    <span ng-bind="loadpageCom.licenseNo"></span>
+                    <button class="btnMOD">修改</button>
+                </div>
+                <span ng-bind="loadpageCom.brandName" style="color: #6cacf2;line-height: 24px"></span>
+                <p ng-show="loadpageCom.claimantFlag ==1">去年出险 <span style="color: #6cacf2">{{loadpageCom.claimant}}</span> 次</p>
+            </div>
+            <div class="carNews">
+                <ul>
+                    <li ng-repeat="d in carDescList ">
+                        <i class="newImg" ng-show="d.state == 1"></i>
+                        <span class="redms" ng-bind="'['+d.activitytitleCar+']'"></span>
+                        <span class="fs12" ng-bind="d.activitydetailsCar"></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="offer-main">
+    <div class="official">
+        <div class="carsMes">
+            <div class="clxx newAddCxll">
+                <div class="clxx-top newClxx">
+                    <i class="yuan personnel-msg"></i>
+                    <span>人员信息</span>
+                </div>
+            </div>
+            <div class="personnel-msg-box">
+                <div class="clearfix peoplecarsMes">
+                    <div class="fl pr">
+                        <div class="insured-left com-style-left" ng-click="showInsured(1)">
+                            <span class="icon"></span>
+                            <p>被保险人信息</p>
+                        </div>
+                        <div class="insured-msg com-style-msg an-show minH" id="1" ng-show="insured == 1||insured == undefined">
+                            <div>
+                                <ul class="ulPad">
+                                    <li class="clearfix">
+                                        <label>被保险人姓名</label>
+                                        <input class="out-msg" type="text" ng-model="insureds.name" readonly="readonly">
+                                        <a class="modify" href="javascript:">修改</a>
+                                    </li>
+                                    <li class="clearfix">
+                                        <label>证件信息</label>
+                                        <div class="right-input certificate">
+                                            <input class="out-msg" type="text" ng-model="insureds.IdTypeName" readonly="readonly">
+                                            <input class="out-msg cardCss" type="text" ng-model="insureds.IdNumber" readonly="readonly">
+                                        </div>
+                                    </li>
+                                    <li class="clearfix">
+                                        <label>性别</label>
+                                        <div class="right-input">
+                                            <!--<input type="text" class="out-msg" ng-model="loadpageDet.insuredSex.value==1:男？女" readonly="readonly">-->
+                                            <span type="text" class="out-msg spanSex" ng-bind="loadpageDetDto.insuredIssuer==1?'男':'女'"></span>
+                                        </div>
+                                    </li>
+                                    <li class="clearfix">
+                                        <label>出生日期</label>
+                                        <div class="right-input">
+                                            <input type="text"  class="out-msg spanSex" ng-model="loadpageDetDto.insuredBirthday" readonly="readonly" >
+                                        </div>
+                                    </li>
+                                    <li class="clearfix">
+                                        <label>手机号码</label>
+                                        <div class="right-input">
+                                            <input type="text"
+                                                   ng-model="insureds.mobile"
+                                                   maxlength="11"
+                                                   ng-required="'请输入电话号码'"
+                                                   custom-validator="rule.mobileRule"
+                                            >
+                                        </div>
+                                    </li>
+                                    <li class="clearfix">
+                                        <label>电子邮箱</label>
+                                        <div class="right-input">
+                                            <input type="text"
+                                                   id ="InsuredMail"
+                                                   ng-model="insureds.mail"
+                                                   ng-required="'请输入电子邮箱'"
+                                                   email-tip-dirc
+                                                   effect-tip="请填写常用邮箱，用于接收保单信息及找回报价"
+                                                   custom-validator="rule.emailRule">
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fl pr">
+                        <div class="border3 owner-left com-style-left" ng-click="showInsured(2)">
+                            <span class="icon"></span>
+                            <p>车主信息</p>
+                            <label class="sure-label"><input type="checkbox" ng-click="clickMark1()">
+                                <i  ng-class="{'onMark': loadpageDetDto.isCarOwnerSameAsInsured == 1}"></i>同被保险人
+                                <!--<input type="hidden" ng-bind="loadpageDetDto.isCarOwnerSameAsInsured">-->
+                            </label>
+                        </div>
+                        <div class="insured-msg com-style-msg an-show" id="2" ng-show="insured == 2">
+                        <div>
+                            <ul class="ulPad" ng-class="{true:'carOwner',false:''}[loadpageDetDto.isCarOwnerSameAsInsured==1]">
+                                <li class="clearfix">
+                                    <label>车主姓名</label>
+                                    <div class="right-input">
+                                        <input id="carOwnerNameBlurId" type="text"
+                                               ng-model="carOwner.name"
+                                               ng-required="'请输入车主姓名'"
+                                               custom-validator="rule.carOwnerNameRule"
+                                               ng-disabled="loadpageDetDto.isCarOwnerSameAsInsured==1">
+                                    </div>
+                                </li>
+                                <li class="clearfix">
+                                    <label>证件信息</label>
+                                        <!--<input  type="text" ng-model="carOwner.IdTypeName" ng-disabled="loadpageDetDto.isCarOwnerSameAsInsured==1">-->
+                                        <drop-down class="baseFee towROW" ng-model="carOwner.IdType" ng-value="carOwner.IdTypeName"
+                                                   ng-disabled="loadpageDetDto.isCarOwnerSameAsInsured==1"
+                                                   on-select="" code="identifycode" name="identifyname" data="selectList2"></drop-down>
+                                    <div class="right-input certificate">
+                                        <input type="text" class="cardCss" ng-model="carOwner.IdNumber"
+                                               custom-validator="rule.carOwnerIDNumberRule"
+                                                ng-disabled="loadpageDetDto.isCarOwnerSameAsInsured==1">
+                                    </div>
+                                </li>
+                                <li class="clearfix">
+                                    <label>手机号码</label>
+                                    <div class="right-input">
+                                        <input type="text"
+                                               ng-model="carOwner.mobile" maxlength="11"
+                                               ng-required="'请输入电话号码'"
+                                               custom-validator="rule.mobileRule"
+                                               ng-disabled="loadpageDetDto.isCarOwnerSameAsInsured==1">
+                                    </div>
+                                </li>
+                                <li class="clearfix">
+                                    <label>电子邮箱</label>
+                                    <div class="right-input">
+                                        <input type="text" id="CarOwnerMail"
+                                               ng-model="carOwner.mail"
+                                               ng-required="'请输入电子邮箱'"
+                                               custom-validator="rule.emailRule"
+                                               effect-tip="请填写常用邮箱，用于接收保单信息及找回报价"
+                                               email-tip-dirc
+                                               ng-disabled="loadpageDetDto.isCarOwnerSameAsInsured==1">
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="fl pr">
+                        <div class="border3 policyholder-left com-style-left" ng-click="showInsured(3)">
+                            <span class="icon"></span>
+                            <p>投保人信息</p>
+                            <label class="sure-label"><input type="checkbox" ng-click="withInsuredInfo()">
+                                <i ng-class="{'onMark':loadpageDetDto.isAppliSameAsInsured == 1}"></i>同被保险人
+                            </label>
+                            <label class="sure-label"><input type="checkbox" ng-click="withCarOwnerInfo()">
+                                <i ng-class="{'onMark':loadpageDetDto.isAppliSameAsCarOwner == 1}"></i>同车主
+                            </label>
+                            <!--<input type="hidden" ng-bind="loadpageDetDto.isAppliSameAsInsured">-->
+                            <!--<input type="hidden" ng-bind="loadpageDetDto.isAppliSameAsCarOwner">-->
+                        </div>
+                        <div class="insured-msg com-style-msg an-show" id="3" ng-show="insured == 3">
+                        <div>
+                            <ul class="ulPad" ng-class="{true:'carOwner',false:''}[loadpageDetDto.isAppliSameAsInsured==1||loadpageDetDto.isAppliSameAsCarOwner==1]">
+                                <li class="clearfix">
+                                    <label>投保人姓名</label>
+                                    <div class="right-input">
+                                        <input type="text"
+                                               ng-model="applis.name"
+                                               ng-required="'请输入投保人姓名'"
+                                               custom-validator="rule.appliNameRule"
+                                               ng-disabled="loadpageDetDto.isAppliSameAsInsured==1||loadpageDetDto.isAppliSameAsCarOwner==1">
+                                    </div>
+                                </li>
+                                <li class="clearfix">
+                                    <label>证件信息</label>
+                                        <!--<input  type="text" ng-model="applis.IdTypeName" ng-readonly="loadpageDetDto.isAppliSameAsInsured==1||loadpageDetDto.isAppliSameAsCarOwner==1">-->
+                                        <drop-down class="baseFee towROW" ng-model="applis.IdType" ng-value="applis.IdTypeName"
+                                                   ng-disabled="loadpageDetDto.isAppliSameAsInsured==1||loadpageDetDto.isAppliSameAsCarOwner==1"
+                                                   on-select="" code="identifycode" name="identifyname" data="selectList3"></drop-down>
+                                    <div class="right-input certificate">
+                                        <input type="text"  class="cardCss"
+                                               ng-model="applis.IdNumber"
+                                               custom-validator="rule.insuredIDNumberRule"
+                                               ng-disabled="loadpageDetDto.isAppliSameAsInsured==1||loadpageDetDto.isAppliSameAsCarOwner==1">
+                                    </div>
+                                </li>
+                                <li class="clearfix">
+                                    <label>手机号码</label>
+                                    <div class="right-input">
+                                        <input type="text"
+                                               ng-model="applis.mobile" maxlength="11"
+                                               ng-required="'请输入电话号码'"
+                                               custom-validator="rule.mobileRule"
+                                               ng-disabled="loadpageDetDto.isAppliSameAsInsured==1||loadpageDetDto.isAppliSameAsCarOwner==1">
+                                    </div>
+                                </li>
+                                <li class="clearfix">
+                                    <label>电子邮箱</label>
+                                    <div class="right-input">
+                                        <input type="text" id="AppliMail"
+                                               ng-model="applis.mail"
+                                               ng-required="'请输入电子邮箱'"
+                                               custom-validator="rule.emailRule"
+                                               effect-tip="请填写常用邮箱，用于接收保单信息及找回报价"
+                                               email-tip-dirc-dirc
+                                               ng-disabled="loadpageDetDto.isAppliSameAsInsured==1||loadpageDetDto.isAppliSameAsCarOwner==1">
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <div class="margin-t38 gift-choice" style="display: none;">
+                <span class="title"><b class="lipin">礼品选择</b></span>
+                <p  ng-class="{true:'selected',false:''}[curYuan=='p1']" ng-click="choosep(1)"><i></i>大礼品包：300元加油卡&nbsp;&nbsp;&nbsp;[<a href="javascript:;">详情</a>]</p>
+                <p  ng-class="{true:'selected',false:''}[curYuan=='p2']" ng-click="choosep(2)"><i></i>参加“惠加油”，加油88折！三大央企世界五百强，强强打造“惠加油”，人保客户加油88折&nbsp;&nbsp;&nbsp;[<a href="javascript:;">详情</a>]</p>
+                <p  ng-class="{true:'selected',false:''}[curYuan=='p3']" ng-click="choosep(3)"><i></i>投保油礼，商业险满千150中石油加油券，详情咨询4001234567&nbsp;&nbsp;&nbsp;[<a href="javascript:;">详情</a>]</p>
+            </div>
+        </div>
+        <div class="carsMes">
+            <div class="clxx new-clxx newAddCxll">
+                <div class="clxx-top newClxx">
+                    <i class="yuan invoice"></i>
+                    <span>保单及发票</span>
+                </div>
+            </div>
+            <div class="padding-tlr">
+                <div class="invoice-haed clearfix">
+                    <div class="invoice-haed-left">
+                        <span class="baodan"></span>
+                        <ul>
+                            <li class="clearfix margin-b32" ng-show="loadpageCom.jQCC != ''"><i class="icon-question"></i>
+                                <label>交强险保单类型：</label>
+                                <radio ng-model="loadpageDetDto.jQepolicyflag" data="{{loadpageCom.policyCI}}"></radio>
+                            </li>
+                            <li class="clearfix"><i class="icon-question" ng-show="loadpageCom.sY != ''"></i>
+                                <label>商业险保单类型：</label>
+                                <radio ng-model="loadpageDetDto.epolicyflag" data="{{loadpageCom.policyBI}}"></radio>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="invoice-haed-right">
+                        <span class="fapiao"></span>
+                        <ul>
+                            <li class="clearfix margin-b32"><label>发票抬头：</label>
+                                <radio ng-model="loadpageCom.invoiceTitle" watch-data
+                                       data="{{[{code:insureds.name,name:insureds.name},{code:applis.name,name:applis.name}]}}"></radio>
+                            </li>
+                            <li class="clearfix" ng-show="loadpageCom.invoiceSwitch ==1"><i class="icon-question"></i><label>发票类型：</label>
+                                <radio ng-model="loadpageDetDto.invoiceflag" data="{{loadpageCom.invoiceType}}"></radio>
+                                                             <!--invoiceflag 接口中无此参数 -->
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mesLeft new-mesLeft invoice-msg address">
+                    <ul class="carUl" ng-class="{true:'dis',false:''}[loadpageDetDto.isAddressSameAsInsured==1||loadpageDetDto.isAddressSameAsCarOwner==1]">
+                        <li class="clearfix"><label><b>配送信息</b></label>
+                            <span class="shipping-msg" ng-click="addressMarkWithInsured()">
+                                <i ng-class="{'onMark':loadpageDetDto.isAddressSameAsInsured ==1}"></i>同被保险人： <span ng-bind="insureds.name"></span></span>
+                            <span class="shipping-msg"  ng-click="addressMarkWithCarOwner()">
+                                <i ng-class="{'onMark':loadpageDetDto.isAddressSameAsCarOwner == 1}"></i>同车主： <span ng-bind="carOwner.name"></span> </span>
+                            <!--<input type="hidden" ng-bind="loadpageDetDto.isAddressSameAsInsured">-->
+                            <!--<input type="hidden" ng-bind="loadpageDetDto.isAddressSameAsCarOwner">-->
+                        </li>
+                        <li class="clearfix">
+                            <label>收件人姓名</label>
+                            <div class="right-input">
+                                <input class="bginput" type="text"
+                                       ng-model="addRess.name"
+                                       ng-required="'请输入收件人姓名'"
+                                       custom-validator="rule.addressNameRule"
+                                       ng-readonly="loadpageDetDto.isAddressSameAsInsured==1||loadpageDetDto.isAddressSameAsCarOwner==1">
+                            </div>
+                        </li>
+                        <li class="clearfix">
+                            <label>收件人电话</label>
+                            <div class="right-input">
+                                <input class="bginput" type="text"
+                                       ng-model="addRess.mobile"
+                                       maxlength="11"
+                                       ng-required="'请输入收件人电话'"
+                                       custom-validator="rule.mobileRule"
+                                       ng-readonly="loadpageDetDto.isAddressSameAsInsured==1||loadpageDetDto.isAddressSameAsCarOwner==1">
+                            </div>
+                        </li>
+                        <li class="clearfix pr" style="z-index:30">
+                            <label>邮箱地址</label>
+                            <div class="right-input">
+                                <input class="bginput" type="text"
+                                       ng-model="addRess.mail"
+                                       ng-required="'请输入电子邮箱'"
+                                       custom-validator="rule.emailRule"
+                                       effect-tip="请填写投保人邮箱地址，用于接收商业险电子保单邮件通知"
+                                       email-tip-dirc
+                                       ng-readonly="loadpageDetDto.isAddressSameAsInsured==1||loadpageDetDto.isAddressSameAsCarOwner==1">
+                            </div>
+                        </li>
+                        <li class="clearfix">
+                            <label>配送地址</label>
+                            <div ng-show="loadpageCom.provinceLabelFlag == 1">
+                                <label ng-bind="loadpageCom.provinceName" style="width:105px;"/>
+                            </div>
+                            <div ng-show="loadpageCom.provinceLabelFlag == 0">
+                                <drop-down class="baseFee" ng-model="loadpageCom.provinceName" ng-value="loadpageCom.provinceName"  ng-disabled=""
+                                           on-select=""  data="loadpageCom.provinceMap" code="code" name="name"></drop-down>
+                            </div>
+                            <div ng-show="loadpageCom.cityLabelFlag == 1">
+                                <label ng-bind="loadpageCom.cityName"/>
+                            </div>
+                            <div ng-show="loadpageCom.cityLabelFlag == 0">
+                                <drop-down class="baseFee" ng-model="loadpageCom.cityName" ng-value="loadpageCom.cityName"  ng-disabled=""
+                                           on-select=""  data="loadpageCom.cityMap" code="code" name="name"></drop-down>
+                            </div>
+                            <drop-down class="baseFee" ng-model="loadpageDetDto.county" ng-value="loadpageCom.countyName"  ng-disabled=""
+                                       on-select=""  data="loadpageCom.countyMap" code="code" name="name"></drop-down>
+                            <div class="right-input">
+                                <input type="text" placeholder="请输入详细地址"
+                                       ng-model="loadpageDetDto.insuredaddress"
+                                       ng-blur="detailAddress($event)"
+                                       ng-required="'请输入详细地址'"
+                                >
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="margin-t30 margin-b53">
+            <ul class="dangerInsure">
+                <li ng-class="{true:'InsureAct',false:''}[showdetail == 1]">
+                    <div class="insuerName">
+                        <b>商业险</b><span ng-bind="loadpageCom.sYPremium"></span>
+                    </div>
+                    <p ng-bind="loadpageCom.sYDate"></p>
+                    <span class="insureDetail" ng-click="insureDetail(1)" ng-bind="showTitle==1?'收起':'详情'"></span>
+                </li>
+                <li ng-class="{true:'InsureAct',false:''}[showdetail == 2]">
+                    <div class="insuerName">
+                        <b ng-bind="loadpageCom.jQCC"></b><span ng-bind="loadpageCom.jQCCPremium"></span>
+                    </div>
+                    <p ng-bind="loadpageCom.jQCCDate"></p>
+                    <span class="insureDetail" ng-click="insureDetail(2)" ng-bind="showTitle==2?'收起':'详情'"></span>
+                </li>
+                <li ng-class="{true:'InsureAct',false:''}[showdetail == 3]">
+                    <div class="insuerName">
+                        <b>车上人员补充意外险</b><span ng-bind="loadpageCom.eADPremium"></span>
+                    </div>
+                    <p ng-bind="loadpageCom.eADDate"></p>
+                    <span class="insureDetail" ng-click="insureDetail(3)" ng-bind="showTitle==3?'收起':'详情'"></span>
+                </li>
+                <li ng-class="{true:'InsureAct',false:''}[showdetail == 4]">
+                    <div class="insuerName">
+                        <b>随车行李保险</b><span ng-bind="loadpageCom.yELPremium"></span>
+                    </div>
+                    <p ng-bind="loadpageCom.yELDate"></p>
+                    <span class="insureDetail" ng-click="insureDetail(4)" ng-bind="showTitle==4?'收起':'详情'"></span>
+                </li>
+            </ul>
+            <div ng-show="showPlan == 1" class="BiInsure">
+                <div class="biCnter">
+                    <ul class="biUl">
+                        <li>保障项目</li>
+                        <li>保障金额(元)</li>
+                        <li>不计免赔(元)</li>
+                        <li>保费(元)</li>
+                    </ul>
+                    <table class="BiTab"  cellpadding="0" cellspacing="0">
+                        <tr ng-repeat="d in BiTabList">
+                            <td width="25%" ng-bind="d.kindname"></td>
+                            <td width="25%" ng-bind="d.amount"></td>
+                            <td width="25%" ng-bind="d.allTaxFee"></td>
+                            <td width="25%" ng-bind="d.premium"></td>
+                        </tr>
+                    </table>
+                    <p class="biMod">修改方案</p>
+                </div>
+                <div class="biCnter">
+                    <div class="biLeft"><b>保障期限</b><span ng-bind="loadDetail.sYdate"></span></div>
+                    <span class="biMod fr biMod2">修改日期</span>
+                </div>
+            </div>
+            <div ng-show="showPlan == 2" class="BiInsure">
+                <div class="biCnter">
+                    <ul class="biUl biUlCi">
+                        <li>交强险</li>
+                        <li>车船税</li>
+                        <li>车主证件信息</li>
+                    </ul>
+                    <table class="BiTab"  cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td width="33.2%" ng-bind="loadDetail.jQPremium"></td>
+                            <td width="33.2%" ng-bind="loadDetail.cCPremium">2</td>
+                            <td width="33.2%" >3</td>
+                        </tr>
+                    </table>
+                    <p class="biMod">修改方案</p>
+                </div>
+                <div class="biCnter">
+                    <div class="biLeft"><b>保障期限</b><span ng-bind="loadDetail.jQTBDate"></span></div>
+                    <span class="biMod fr biMod2">修改日期</span>
+                </div>
+            </div>
+            <div ng-show="showPlan == 3" class="BiInsure">
+                <div class="biCnter">
+                    <ul class="biUl biUlCi">
+                        <li>保障项目</li>
+                        <li>保险金额（每人/份/元）</li>
+                        <li>保费（每人/份/元）</li>
+                    </ul>
+                    <table class="BiTab"  cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td width="33.2%">意外身故残疾</td>
+                            <td width="33.2%" ng-bind="loadDetail.eadAmount"></td>
+                            <td width="33.2%" rowspan="2" ng-bind="loadDetail.eadPremium"></td>
+                        </tr>
+                        <tr>
+                            <td>附加意外医疗</td>
+                            <td ng-bind="loadDetail.eadAmounts"></td>
+                        </tr>
+                    </table>
+                    <ul class="biUl biUlCiNormal">
+                        <li>每次事故门急诊限额2000元</li>
+                        <li>每次事故意外医疗免赔额100元</li>
+                        <li>医疗费用给付比例80%</li>
+                    </ul>
+                </div>
+                <div class="biCnter">
+                     <p class="biMod">修改方案</p>
+                </div>
+                <!--<div class="biCnter">-->
+                    <!--<div class="biLeft"><b>保障期限</b><span ng-bind="loadDetail.eadDate"></span></div>-->
+                    <!--<span class="biMod fr biMod2">修改日期</span>-->
+                <!--</div>-->
+            </div>
+            <div ng-show="showPlan == 4" class="BiInsure">
+                <div class="biCnter">
+                    <ul class="biUl biUlCi">
+                        <li>特别约定</li>
+                        <li>保险金额（每人/份/元）</li>
+                        <li>保费（每人/份/元）</li>
+                    </ul>
+                    <table class="BiTab"  cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td width="33.2%" ng-bind="loadpageCom.newYELEngage"></td>
+                            <td width="33.2%" ng-bind="loadDetail.yelAmount"></td>
+                            <td width="33.2%"  ng-bind="loadDetail.yelSumPremium"></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="biCnter">
+                    <p class="biMod">修改方案</p>
+                </div>
+                <!--<div class="biCnter">-->
+                    <!--<div class="biLeft"><b>保障期限</b><span ng-bind="loadpageCom.yELDate"></span></div>-->
+                    <!--<span class="biMod fr biMod2">修改日期</span>-->
+                <!--</div>-->
+            </div>
+            <div class="submoney">
+                <p>保费总计：{{loadpageCom.premiumDetail}}元&nbsp;&nbsp;&nbsp; <span class="moneyspan">实付金额：<span class="size">{{loadpageCom.premiumDetail}}</span>元</span></p>
+            </div>
+            <insure-item></insure-item>
+        </div>
+        <div class="submit">
+            <a href="javascript:" class="saveMes" ng-click="backToCal()">返回上一步</a>
+            <a href="javascript:" class="saveMes" ng-click="saveCarInfo()">保存信息</a>
+            <div class="price" ng-click="saveProposal()">提交订单</div>
+        </div>
+    </div>
+</div>
+<!--侧边浮动条-->
+<slide-box></slide-box>
+<!--超时弹层-->
+<overtime-page></overtime-page>
+

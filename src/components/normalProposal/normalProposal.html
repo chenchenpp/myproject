@@ -1,0 +1,56 @@
+<div class="step_div"></div>
+<div class="offer-main">
+    <div class="official">
+            <div class="carsMes boxShadow">
+                <div class="renewalCard" ng-class="{xub:flag==0,zhu:flag==1}">
+                    <div class="fl">
+                        <i class="flagCar fl"><i class="bzIcon"></i></i>
+                        <div class="tit">
+                            <b ng-bind="flag==0 ? '续保客户投保':'欢迎您再次选择人保'"></b>
+                            <p>填写被保险人证件号，可带出往年投保信息，快速投保</p>
+                        </div>
+                    </div>
+                    <div ng-show="flag==0" class="fr pr20"><i class="xCar"></i>二手车过户？请点<a ng-click="state()">这里</a></div>
+                </div>
+                <div class="pr">
+                    <div class="mesLeft new-mesLeft">
+                        <ul class="carUl">
+                            <li class="clearfix">
+                                <label>被保险人证件号码</label>
+                                <div class="right-input">
+                                    <input name="tokenNo"
+                                           id="tokenNo"
+                                           maxlength="20"
+                                           type="text"
+                                           enlarge="enlargeFilter"
+                                           custom-validator=""
+                                           ng-required="'请输入被保险人证件号码'"
+                                           ng-model="card.tokenNo"
+                                           required>
+                                </div>
+                            </li>
+                            <li class="clearfix">
+                                <label>验证码</label>
+                                <div class="right-input">
+                                    <input id="renewalRand"
+                                           name="renewalRand"
+                                            type="text"  class="fl wid95"
+                                            custom-validator=""
+                                            ng-model="card.random">
+                                    <img ng-src="{{imgsrcurl}}" alt=""  class="fl sendImg">
+                                    <span  class="fl refresh" ng-click="ChangeCode()"></span>
+                                </div>
+                            </li>
+                            <li class="clearfix">
+                                <label></label>
+                                <input type="button" class="fastBtn" value="立即报价" ng-click="fastBtn()">
+                                <span class="skip" ng-show="flag==1" >跳过次步</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+<!--超时弹层-->
+<overtime-page></overtime-page>

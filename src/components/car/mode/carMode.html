@@ -1,0 +1,153 @@
+<div class="pop_brandmodel pop_bra1">
+    <div class="pop_arrow"></div>
+    <div class="model_title" >
+        <h4>请选择您的车辆配置</h4>
+        <p>找不到车辆信息？您可以&nbsp;&nbsp;<a class="search_models" ng-click="searchMod()"> 按品牌查车</a></p>
+        <a class="clos" ng-click="close()"></a>
+    </div>
+    <div class="model_con model_con_new">
+        <!--默认查车方式-->
+        <div ng-show="defaultModel">
+            <div class="model-cont">
+                <div class="model-l">
+                    <h3 class="titH3">品牌</h3>
+                    <div class="cars">
+                        <ul>
+                            <li  ng-click="onleftBrand(d,$index)"  ng-repeat="d  in carBrandDatalist"
+                                 ng-class="{current:isActive === $index,black:!isActive === $index}">
+                                <a class="firstli" ng-bind="d.brandName"></a><span class="caret"></span>
+                                <a  ng-bind="d.brandCode" style="display: none"></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="model-r">
+                     <table border="0" class="car-table" cellpadding="0" cellspacing="0">
+                            <tbody>
+                            <tr>
+                                <th width="18%">
+                                    <drop-down class="littleImg ddlTitle ddlTitle2" ng-model="car.familyCode" ng-value="car.familyName"  ng-disabled=""
+                                               on-select="obj.CarUl()" code="familyCode" name="familyName" data="cxList"></drop-down>
+                                </th>
+                                <th width="12%">
+                                    <drop-down class="littleImg ddlTitle ddlTitle60" ng-model="car.engineDesc" ng-value="car.engineDesc"  ng-disabled=""
+                                               on-select="obj.CarUl()" code="engineDesc" name="engineDesc" data="plList"></drop-down>
+                                </th>
+                                <th width="14%">
+                                    <drop-down class="littleImg ddlTitle ddlTitle2" ng-model="car.gearboxType" ng-value="car.gearboxType"  ng-disabled=""
+                                               on-select="obj.CarUl()" code="gearboxType" name="gearboxType" data="dwList"></drop-down>
+                                </th>
+                                <th width="42%"><p class="maxWid260">产品型号</p></th>
+                                <th width="16%"><p class="maxWid120">参考价</p></th>
+                            </tr>
+                            <tr ng-repeat="d  in carDatalist"
+                                ng-class="{'oddTr':$index%2!=0}" ng-click="onAssignment(d)">
+                                <td>
+                                    <p class="familyNameP" title="{{d.familyName}}"  ng-bind="d.familyName"></p>
+                                </td>
+                                <td  ng-bind="d.engineDesc"></td>
+                                <td  ng-bind="d.gearboxType"></td>
+                                <td  >
+                                    <p class="spicleP" ng-bind-html="d.newModelName" title="{{d.newModelName1}}"></p>
+                                </td>
+                                <td  ng-bind="d.newPrice"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                </div>
+            </div>
+            <div class="index_page">
+                <tm-pagination conf="paginationConf"></tm-pagination>
+            </div>
+        </div>
+        <!--按品牌型号查车-->
+        <div class="brandSearch" ng-show="brandSearch">
+            <div class="brand_left clearfix">
+                <ul class="clearfix brand_leftuL">
+                    <li>
+                        <label>车型品牌</label>
+                        <input type="text" readonly ng-model="jydbcarbrand" ng-blur="onhotBrand()">
+                    </li>
+                    <li>
+                        <label>年款</label>
+                        <drop-down class="littleImg selWid" ng-model="carfind.groupId" ng-value="carfind.groupName"  ng-disabled=""
+                                   on-select="selectgroup(groupName)" code="groupId" name="groupName" data="cargrounplist"></drop-down>
+                    </li>
+                    <li>
+                        <label>排气量</label>
+                        <drop-down class="littleImg selWid" ng-model="carfind.engineDesc" ng-value="carfind.engineDesc"  ng-disabled=""
+                                   on-select="selectengineDesc(engineDesc)" code="engineDesc" name="engineDesc" data="engineDesclist"></drop-down>
+                    </li>
+                    <li>
+                        <label>手动/自动</label>
+                        <drop-down class="littleImg selWid" ng-model="carfind.gearboxType" ng-value="carfind.gearboxName"  ng-disabled=""
+                                   on-select="selectgearbox(gearboxType)" code="gearboxType" name="gearboxName" data="gearboxlist"></drop-down>
+                    </li>
+                    <li>
+                        <label>配置型号</label>
+                        <drop-down class="littleImg selWid" ng-model="carfind.parentVehId" ng-value="carfind.parentVehName"  ng-disabled=""
+                                   on-select="selectjyParentVehName(myjyParentVehName)" code="parentVehId" name="parentVehName" data="jyParentVehNamelist"></drop-down>
+                    </li>
+                    <li>
+                        <label>车型</label>
+                        <drop-down class="littleImg selWid" ng-model="carfind.vehicleFgwCode" ng-value="carfind.vehicleFgwCode"  ng-disabled=""
+                                   on-select="selectjyFgwCode(vehicleFgwCode)" code="vehicleFgwCode" name="vehicleFgwCode" data="jyFgwCodelist"></drop-down>
+                    </li>
+                </ul>
+                <div class="brandBtn" ng-click="findjydbbtn()">确  定</div>
+            </div>
+            <div class="brand_right" ng-if="jydbcarshow">
+                <ul class="brand_right_ul" >
+                    <li ng-class="{true:'li_active',false:''}[curActive=='hotBrand']" ng-click="onhotBrand()">
+                        热门品牌
+                    </li>
+                    <li ng-class="{true:'li_active',false:''}[curActive=='allBrand']" ng-click="onallBrand()">
+                        全部品牌
+                    </li>
+                </ul>
+                <!--热门品牌-->
+                <ul class="tabHotBrand" ng-if="mainhotBrand">
+                    <div ng-if="showhot">
+                    <li ng-click="hotdetailiconcarfind(d)" ng-repeat="d in jydbdatalist" style="float: left">
+                        <img ng-src="{{d.brandPic}}">
+                    </li>
+                    </div>
+                    <div ng-if="showhotdetail">
+                        <ul class="taboneBrand" >
+                            <li ng-click="caronefind(d)" ng-repeat="d in  jydbdetailfindlist" ng-bind="d.brandName+d.familyAbbr" style="float: left"></li>
+                        </ul>
+                    </div>
+                </ul>
+                <!--全部品牌-->
+                <div ng-if="mainAllBrand">
+                    筛选
+                    <!--26个字母查车-->
+                    <div ng-if="showall">
+                        <ul class="taballBrand" >
+                            <li ng-click="alpcarfind(d)" ng-repeat="d in jydbalplist" style="float: left" ng-bind="d.brandInitial"></li>
+                        </ul>
+                        <ul class="tabdetailBrand" ng-if="maindetailBrand">
+                            <li ng-click="detailiconcarfind(d)" ng-repeat="d in jydbdetaillist" style="float: left">
+                                <img ng-src="{{d.brandPic}}">
+                            </li>
+                        </ul>
+                    </div>
+                    <div ng-if="showdetail">
+                        <ul class="taboneBrand" >
+                            <li ng-click="caronefind(d)" ng-repeat="d in  jydbdetailfindlist" ng-bind="d.brandName+d.familyAbbr" style="float: left">
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="brand_right newBrand_right" ng-if="jydbgroupcarshow">
+                <img ng-src="{{grounppic}}">
+            </div>
+        </div>
+        <div class="hint-page clearfix">
+            <div class="hint fl">
+                <p>如您的车辆不在列表内，建议您致电：  <span>400-1234567</span>转<span>2</span>咨询。</p>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,20 @@
+<div class="layer_mask"></div>
+<div class="layer_preAssess newTestCode">
+    <div class="preAssessTop" ng-click="cancel()">
+        <h2>请输入验证码</h2>
+        <i class="preClose"></i>
+    </div>
+    <div class="layerMain">
+        <ul class="idCode">
+            <li><label class="fl">验证码信息: </label>
+                <input type="text" class="fl" ng-model="car.checkcodebi">
+                <img ng-src="{{checkCodeImg}}" alt="" class="fl codeImg" >
+                <span class="fl" ng-click="changeOne(1)">换一张</span>
+            </li>
+            <p ng-bind="car.codeFlag" class="priceFlag"></p>
+        </ul>
+        <div class="layer_tipBtn">
+            <span class="layerY" ng-click="changeOne(2)">确 定</span>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,21 @@
+<div class="layer_mask"></div>
+<div class="layer_preAssess" style="background-color:#fff;width:400px;overflow: hidden;margin-left:-200px;">
+    <div class="preAssessTop" >
+        <h2>发送报价</h2>
+        <i class="preClose" ng-click="closeSendPrice()"></i>
+    </div>
+    <ul class="sendPriceUl">
+        <li>
+            <label class="fl" ><i class="onBox" ng-class="{true:'onMark',false:''}[curBoxAct1=='boxFlag1']" ng-click="clickbox1()"></i>手机号码：</label><input type="text" class="fl" maxlength="11" ng-model="car.mobile">
+            <!--<label class="fl><i></i>手机号码：</label><input type="text" class="fl" ng-model="car.mobile">-->
+        </li>
+        <li>
+            <label class="fl"><i class="onBox" ng-class="{true:'onMark',false:''}[curBoxAct2=='boxFlag2']" ng-click="clickbox2()"></i>电子邮箱：</label><input type="text" class="fl" ng-model="car.email">
+        </li>
+        <li>
+            <label class="fl ml24">验&nbsp;&nbsp;证&nbsp;&nbsp;码：</label><input type="text" ng-model="calReqDto.verifyCode" class="fl wid88"><img ng-src="{{srcurl}}" alt=""  class="fl sendImg"> <span  class="fl linheight34" ng-click="ChangeONE()">换一张</span>
+        </li>
+        <span ng-bind="car.priceFlag" class="priceFlag"></span>
+    </ul>
+    <span class="sendPrice" ng-click="sendLayer()">发送</span>
+</div>

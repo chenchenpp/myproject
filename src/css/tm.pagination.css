@@ -1,0 +1,15 @@
+/*pagination*/
+.pagination{float: right;margin:13px 20px 0 10px;}
+.page-total{float: right;margin-top: 15px;}
+.pagination > li > a, .pagination > li > span{padding: 0;height: 24px;width: 24px;line-height: 24px;text-align: center}
+.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus{    border: 1px solid #ff5050;border-radius: 2px;color: #ff5050;}
+.pagination > li > a:hover, .pagination > li > span:hover, .pagination > li > a:focus, .pagination > li > span:focus{color: #666;}
+.pagination > li{margin-left: 10px;float: left;border-radius: 2px;}
+.pagination > li > a, .pagination > li > span{color: #666;border-radius: 2px;width:24px;height:24px;border:1px solid #d9d9d9;display: inline-block;cursor: pointer;}
+.page-total input,.page-total select{width: 54px;height: 22px;border: 1px solid #cdcdcd;color: #666;line-height: 22px;text-align: center;border-radius: 2px;padding-left: 0;}
+.page-total input{width: 30px;}
+.pagination > li:first-child > a, .pagination > li:first-child > span{border-radius: 2px;}
+.pagination > li > a:hover, .pagination > li > span:hover{border: 1px solid #ff5050;border-radius: 2px;color: #ff5050;cursor: pointer;}
+.page-total b,.page-total strong{font-weight: normal;font-size: 14px;}
+.page-list{padding-bottom: 10px;overflow: hidden}
+.no-items{text-align: center;line-height: 30px;}
