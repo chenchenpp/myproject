@@ -7,7 +7,7 @@ module.exports={
     output: {
         path: devBuildPath,
         publicPath: '/',
-        filename: 'entry.[chunkhash].js',    // [name]表示entry每一项中的key，用以批量指定生成后文件的名称
+        filename: 'bundle.js',    // [name]表示entry每一项中的key，用以批量指定生成后文件的名称
         chunkFilename: '[id].bundle.js',
     },
     module: require("./webpack-config/module.dev.config"),
