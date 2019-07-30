@@ -1,9 +1,14 @@
+import "./css/tm.pagination.css"
+import "./css/jedate.css"
+import "./css/base.css"
+import "./css/index.css"
 import angular from 'angular'
 import ngCookies from 'angular-cookies'
 import 'oclazyload'
 import uiRouter from 'angular-ui-router'
 import coreRouter from './route.js'
 import { coreConfig,runConfig } from './index.config.js'
+
 // import business from './components/business.mod'
 // import { config } from './route'
 // import utilities from './utilities/utilities.mod'
