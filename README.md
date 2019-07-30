@@ -1,4 +1,7 @@
 # webpack+es6 product based on Angular1.x
+说明：
+  由于angular1.x是很早就出来的框架了，当时还没有很多的项目架构生态环境，随着时间的变更，webpack1就越来越在潮流中隐退，不过对于一些传统行业来说还可以大有所为，由于angular1.x对ie8是可支持的。
+  所以在这个背景下，所以实现一个自己的基于webpack+es6+angular1.x的前端项目架构。
 ## 目录结构说明
 * /index.html   应用程序主页
 * /main.js  requireJS入口文件,用于配置第三方依赖库
