@@ -16,4 +16,4 @@ business.config(["$provide", "$compileProvider", "$controllerProvider", "$filter
         business.service = $provide.service;
         business.constant = $provide.constant;
     }]);
-    export default business;
+export default business;

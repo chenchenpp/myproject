@@ -1,96 +1,45 @@
-// import { app } from './index.js'
-// app.config(['$urlRouterProvider', '$stateProvider',
-// function ($urlRouterProvider, $stateProvider) {
-//     var userPath = './components/';
-//     var v = '?v=' + window.CACTUS.version;
-//     $urlRouterProvider.when("", "/homePage").otherwise('/homePage');
-//     $stateProvider
-//         .state("homePage",{
-//             url: "/homePage",
-//             templateUrl: userPath+"homePage/homePage.html"+v,
-//             // controller: 'homePageCtrl',
-//             // resolve: {
-//             //     loadCommunity: ['$ocLazyLoad', function ($ocLazyLoad) {
-//             //         return $ocLazyLoad.load([
-//             //             userPath + 'homePage/homePage.ctrl.js']);
-//             //     }]
-//             // }
-
-//         })
-//         .state("amountEstimate", {
-//             url: "/amountEstimate?uuid",
-//             templateUrl: userPath + "amountEstimate/amountEstimate.html" + v,
-//             controller: 'amountEstimateCtrl',
-//             resolve: {
-//                 loadCommunity: ['$ocLazyLoad', function ($ocLazyLoad) {
-//                     return $ocLazyLoad.load([
-//                         userPath + 'amountEstimate/amountEstimate.ctrl.js']);
-//                 }]
-//             }
-//         })
-//         .state("normalProposal", {
-//             url: "/normalProposal?uuid",
-//             templateUrl: userPath + "normalProposal/normalProposal.html" + v,
-//             controller: 'normalProposalCtrl',
-//             resolve: {
-//                 loadCommunity: ['$ocLazyLoad', function ($ocLazyLoad) {
-//                     return $ocLazyLoad.load([
-//                         userPath + 'normalProposal/normalProposal.ctrl.js']);
-//                 }]
-//             }
-//         })
-//         .state("car", {
-//             url: "/car?uuid",
-//             templateUrl: userPath + "car/car.html" + v,
-//             controller: 'carCtrl',
-//             resolve: {
-//                 loadCommunity: ['$ocLazyLoad', function ($ocLazyLoad) {
-//                     return $ocLazyLoad.load([
-//                         userPath + 'car/car.ctrl.js']);
-//                 }]
-//             }
-//         })
-//         .state("calculate", {
-//             url: "/calculate?uuid",
-//             templateUrl: userPath + "calculate/calculate.html" + v,
-//             controller: 'calculateCtrl',
-//             resolve: {
-//                 loadCommunity: ['$ocLazyLoad', function ($ocLazyLoad) {
-//                     return $ocLazyLoad.load([
-//                         userPath + 'calculate/calculate.ctrl.js']);
-//                 }]
-//             }
-//         })
-//         .state("loadInsuranceInfo", {
-//             url: "/loadInsuranceInfo?uuid",
-//             resolve: {
-//                 loadCommunity: ['$ocLazyLoad', function ($ocLazyLoad) {
-//                     return $ocLazyLoad.load('loadInsuranceInfo');
-//                 }]
-//             },
-//             // views: {
-//             //     main: {
-//             templateUrl: userPath + "loadInsuranceInfo/loadInsuranceInfo.html" + v,
-//             controller: 'loadInsuranceInfoCtrl'
-//             // }
-//             // }amountEstimateCtrl
-//         });
-// }])
-function coreRouter($urlRouterProvider,$stateProvider){
+export default function coreRouter($urlRouterProvider,$stateProvider){
     $urlRouterProvider.when("", "/homePage").otherwise('/homePage');
     $stateProvider
         .state("homePage",{
             url: "/homePage",
             template: require('./components/homePage/homePage.html'),
-            // controller: 'homePageCtrl',
-            // resolve: {
-            //     loadCommunity: ['$ocLazyLoad', function ($ocLazyLoad) {
-            //         return $ocLazyLoad.load([
-            //             userPath + 'homePage/homePage.ctrl.js']);
-            //     }]
-            // }
-
+            controller: 'homePageCtrl',
+            resolve: {
+                load: ['$q','$ocLazyLoad',function ($q,$ocLazyLoad) {
+                    return $q((resolve) => {
+                        //下面这一行写法是webpack在需要的时候才下载依赖的模块，[具体看这里][2]
+                        require.ensure([], () => {
+                            //这里只是依赖了一个控制器文件，但是这个文件里面你可以import很多其他的依赖
+                            let module = require('./components/homePage/homePage.ctrl'); 
+                            //加载模块名为xxx.bg.login的模块，具体是什么作用没弄明白，请高手解答
+                            $ocLazyLoad.load({name: 'business'}); 
+                            //promise 的成功回调，不返回出去参数也没关系，因为在login.contorller.js里面已经注册了LoginCtrl
+                            resolve(module.controller); 
+                        });
+                    });
+                }]
+            }
+        })
+        .state("detail",{
+            url: "/detail",
+            template: require('./components/detail/detail.html'),
+            controller: 'detailCtrl',
+            resolve: {
+                load: ['$q','$ocLazyLoad',function ($q,$ocLazyLoad) {
+                    return $q((resolve) => {
+                        //下面这一行写法是webpack在需要的时候才下载依赖的模块，[具体看这里][2]
+                        require.ensure([], () => {
+                            //这里只是依赖了一个控制器文件，但是这个文件里面你可以import很多其他的依赖
+                            let module = require('./components/detail/detail.ctrl'); 
+                            //加载模块名为xxx.bg.login的模块，具体是什么作用没弄明白，请高手解答
+                            $ocLazyLoad.load({name: 'business'}); 
+                            //promise 的成功回调，不返回出去参数也没关系，因为在login.contorller.js里面已经注册了LoginCtrl
+                            resolve(module.controller); 
+                        });
+                    });
+                }]
+            }
         })
 }
 coreRouter.$inject=['$urlRouterProvider','$stateProvider'];
-export default coreRouter;
