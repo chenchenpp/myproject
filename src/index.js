@@ -10,8 +10,7 @@ import coreRouter from './route.js'
 import { coreConfig,runConfig } from './index.config.js'
 import business from './components/business.mod'
 require('./mock/mock.mod')
-// import { config } from './route'
-// import utilities from './utilities/utilities.mod'
+import utilities from './utilities/utilities.mod'
 angular.element(document).ready(function () {
     console.log(business,'1111')
     //手工启动Angular APP
@@ -19,7 +18,8 @@ angular.element(document).ready(function () {
         ngCookies,
         'oc.lazyLoad',
         uiRouter,
-        business.name
+        business.name,
+        utilities.name
     ]);
     app.config(['$controllerProvider','$compileProvider','$filterProvider','$provide',
         function ($controllerProvider,$compileProvider,$filterProvider,$provide){

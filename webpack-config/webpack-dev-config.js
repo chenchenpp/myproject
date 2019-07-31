@@ -1,7 +1,6 @@
 let serverHttp='http://172.16.16.11:8080';
 const path=require('path')
 const eslintFriendlyFormatter=require('eslint-friendly-formatter')
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 module.exports={
     devtool: 'source-map',
     module: {
@@ -17,11 +16,6 @@ module.exports={
             }
         ]
     },
-    plugins: [
-        new UglifyJSPlugin({
-            sourceMap: true
-        })
-    ],
     devServer: {
         contentBase: path.resolve(__dirname,'../build'),
         port: 8089,

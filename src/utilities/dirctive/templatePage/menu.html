@@ -1,0 +1,12 @@
+<div>
+    <ul class="menu-first-content">
+        <li ng-repeat="item in navList" class="menu-first-item">
+            <span ng-bind="item.title" class="menu-first-title"></span>
+            <ul class="menu-second-content">
+                <li ng-repeat="secondItem in item.list" class="menu-second-item">
+                    <span ng-bind="secondItem.title" class="menu-second-title"></span>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>

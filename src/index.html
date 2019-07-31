@@ -17,15 +17,16 @@
     <![endif]-->
 </head>
 <body>
-<div ng-controller="IndexCtrl">
-    <div class="main">
-        <!--主界面区域头-->
-        <header class="header">
-            <h1 class="logo">Chueng@PrivateCorner</h1>
-        </header>
-        <!--内容区域-->
-        <div ui-view></div>
-    </div>
+<div ng-controller="IndexCtrl" class="angualar-main">
+    <!--主界面区域头-->
+    <header class="header">
+        <h1 class="logo">Chueng@PrivateCorner</h1>
+    </header>
+    <nav class="nav-menu">
+        <menu></menu>
+    </nav>
+    <!--内容区域-->
+    <div class="content" ui-view></div>
 </div>
 <!--<script data-main="main.js?v=1.0.0.0" src="lib/requirejs/require.js"></script>-->
 <!-- <script type="text/javascript">
