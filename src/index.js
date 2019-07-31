@@ -1,7 +1,7 @@
+import "./css/reset.css"
+import "./css/common.css"
 import "./css/tm.pagination.css"
 import "./css/jedate.css"
-import "./css/base.css"
-import "./css/index.css"
 import angular from 'angular'
 import ngCookies from 'angular-cookies'
 import 'oclazyload'
@@ -9,6 +9,7 @@ import uiRouter from 'angular-ui-router'
 import coreRouter from './route.js'
 import { coreConfig,runConfig } from './index.config.js'
 import business from './components/business.mod'
+require('./mock/mock.mod')
 // import { config } from './route'
 // import utilities from './utilities/utilities.mod'
 angular.element(document).ready(function () {
@@ -31,11 +32,15 @@ angular.element(document).ready(function () {
             };
     }])
     // 祖籍控制器
-    app.controller('IndexCtrl', ['$scope','$location',
-        function ($scope,$location) {
+    app.controller('IndexCtrl', ['$scope','$location','$http',
+        function ($scope,$location,$http) {
             console.log('我是主程序')
-            $scope.homepage='1111111111'
-            console.log($scope)
+            $http({
+                method: 'POST',
+                url: '/loadingData'
+            }).then((success,fail)=>{
+                console.log(success,'22222222222')
+            })
         }]
     );
     // 路由配置

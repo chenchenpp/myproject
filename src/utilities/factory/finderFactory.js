@@ -2,10 +2,8 @@
  * 后台调用方法（post.get）
  * 旨在提供一个公共方法,便于参数统一转换
  */
-define([], function () {
-    'use strict';
-    var finderFactoryHandler =  function ($http,$q,apiPath) {
-        /**合并两个对象 产生一个新对象
+export default function finderFactoryHandler($http,$q,apiPath){
+ /**合并两个对象 产生一个新对象
          *
          * @param obj2
          * @returns {*}
@@ -68,5 +66,3 @@ define([], function () {
         };
     };
     finderFactoryHandler.$inject = ['$http','$q','apiPath'];
-    return finderFactoryHandler;
-});

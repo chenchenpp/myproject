@@ -32,7 +32,7 @@ function runConfig($state,$stateParams,$rootScope){
                 $(window).unbind("scroll")
             }
         }
-    
+
     );
     $rootScope.$on('$locationChangeSuccess',
         function(event, toState, toParams, fromState, fromParams){

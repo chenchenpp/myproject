@@ -1,7 +1,7 @@
 
 // import angular from 'angular'
 import business from '../business.mod'
-
+import './homePage.less'
 export default business.controller('homePageCtrl',['$scope','$state',function($scope,$state){
     console.log('我是首页')
     $scope.homedata='我是homestart'
