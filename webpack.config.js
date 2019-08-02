@@ -6,6 +6,7 @@ const { CleanWebpackPlugin }=require('clean-webpack-plugin')
 const HtmlWebpackPlugin= require('html-webpack-plugin')
 const developmentConfig= require('./webpack-config/webpack-dev-config.js')
 const productionConfig= require('./webpack-config/webpack-pro-config.js')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const commonConfig={
     entry: {
         index: './src/index.js'
@@ -34,23 +35,34 @@ const commonConfig={
             {
                 test: /\.css$/,
                 include: SRCPATH,
-                use: [{
-                        loader: 'style-loader',
-                    },{
-                        loader: 'css-loader'
-                    }
-                ]
+                use: [
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                        options: {
+                        // you can specify a publicPath here
+                        // by default it uses publicPath in webpackOptions.output
+                        publicPath: '../',
+                        },
+                    },
+                    'css-loader',
+                    // 'style-loader'
+                ],
             },
             {
                 test: /\.less$/,
                 include: SRCPATH,
-                use: [{
-                    loader: 'style-loader',
-                },{
-                    loader: 'css-loader'
-                },{
-                    loader: 'less-loader'
-                }]
+                use: [
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                        options: {
+                        // you can specify a publicPath here
+                        // by default it uses publicPath in webpackOptions.output
+                        publicPath: '../',
+                        },
+                    },
+                    'css-loader',
+                    'less-loader'
+                ],
             },
             {
                 test: /\.(png|jpg|gif)$/,
@@ -59,6 +71,15 @@ const commonConfig={
                 options: {
                     outputPath: 'images/'
                 }
+            },
+            {
+                // 专供iconfont方案使用的，后面会带一串时间戳，需要特别匹配到
+                test: /\.(woff|woff2|svg|eot|ttf|otf)$/,
+                include: path.resolve(__dirname, './src/fonts/font/fonts'),
+                use: [{
+                    loader: 'file-loader'
+                }]
+                
             }
         ]
     },
@@ -72,7 +93,11 @@ const commonConfig={
             template: path.resolve(__dirname,'./src/index.html')
     
         }),
-        new CleanWebpackPlugin()
+        new CleanWebpackPlugin(),
+        new MiniCssExtractPlugin({
+            filename: '[name].css',
+            chunkFilename: '[id].css',
+        })
     ],
     // devServer: require('./webpack-config/server.dev.config.js')
 }

@@ -1,9 +1,10 @@
 <div>
     <ul class="menu-first-content">
         <li ng-repeat="item in navList" class="menu-first-item">
-            <span ng-bind="item.title" class="menu-first-title"></span>
+            <span ng-bind="item.title" class="menu-first-title" ng-click="showOrGo(item,$index)"></span>
+            <span class="oi oi-resize-both"></span>
             <ul class="menu-second-content">
-                <li ng-repeat="secondItem in item.list" class="menu-second-item">
+                <li ng-repeat="secondItem in item.list" class="menu-second-item" ng-show="item.list && item.checked">
                     <span ng-bind="secondItem.title" class="menu-second-title"></span>
                 </li>
             </ul>

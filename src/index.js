@@ -2,10 +2,12 @@ import "./css/reset.css"
 import "./css/common.css"
 import "./css/tm.pagination.css"
 import "./css/jedate.css"
+require('./fonts/font/css/open-iconic-bootstrap.css')
 import angular from 'angular'
 import ngCookies from 'angular-cookies'
 import 'oclazyload'
 import uiRouter from 'angular-ui-router'
+// angular的路由与入口配置
 import coreRouter from './route.js'
 import { coreConfig,runConfig } from './index.config.js'
 import business from './components/business.mod'
