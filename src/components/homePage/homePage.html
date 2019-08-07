@@ -1,5 +1,20 @@
 <div>
-<ul class="main">
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <img class="swiper-slide" ng-repeat="item in swiperItemData" ng-src="{{item.imageUrl}}" alt="">
+        </div>
+        <!-- <div class="swiper-wrapper">
+            <div class="swiper-slide">slid1</div>
+            <div class="swiper-slide">slid2</div>
+            <div class="swiper-slide">slid3</div>
+        </div> -->
+        <!-- 如果需要分页器 -->
+        <div class="swiper-pagination"></div>
+        <!-- 如果需要导航按钮 -->
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+    </div>
+    <ul class="main">
         <li>
             <div class="title">波浪加载</div>
             <div class="load1">

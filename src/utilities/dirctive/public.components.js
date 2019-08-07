@@ -15,57 +15,52 @@ utilitiesDirctive.directive('menu',[function() {
             $scope.navList = [
                 {
                     title:"首页",
-                    routerUrl: "homePage"
+                    routerUrl: "homePage",
                 },
                 {
-                    title:'文档',
+                    title:'VUE',
                     list:[
                         {title:'VUE文档'},
-                        {title:'二级标题'},
-                        {title:'二级标题'},
-                        {title:'二级标题'},
-                        {title:'二级标题'}
-                    ]
+                        {title:'VUE项目'},
+                        {title:'VUE视频'},
+                    ],
+                    isChooseMenu: true
                 },
                 {
-                    title:'一级标题3',
+                    title:'webpack',
                     list:[
-                        {title:'二级标题'},
-                        {title:'二级标题'},
-                        {title:'二级标题'},
-                        {title:'二级标题'},
-                        {title:'二级标题'}
-                    ]
+                        {title:'webpack文档'},
+                        {title:'webpack项目'},
+                        {title:'webpack视频'},
+                    ],
+                    isChooseMenu: true
                 },
                 {
-                    title:'一级标题4',
+                    title:'nodeJS',
                     list:[
-                        {title:'二级标题'},
-                        {title:'二级标题'},
-                        {title:'二级标题'},
-                        {title:'二级标题'},
-                        {title:'二级标题'}
-                    ]
+                        {title:'nodeJS文档'},
+                        {title:'nodeJS项目'},
+                        {title:'nodeJs视频'},
+                    ],
+                    isChooseMenu: true
                 },
                 {
-                    title:'一级标题5',
+                    title:'微信小程序',
                     list:[
-                        {title:'二级标题'},
-                        {title:'二级标题'},
-                        {title:'二级标题'},
-                        {title:'二级标题'},
-                        {title:'二级标题'}
-                    ]
+                        {title:'微信小程序文档'},
+                        {title:'微信小程序项目'},
+                        {title:'微信小程序视频'},
+                    ],
+                    isChooseMenu: true
                 },
                 {
-                    title:'一级标题6',
+                    title:'typescript',
                     list:[
-                        {title:'二级标题'},
-                        {title:'二级标题'},
-                        {title:'二级标题'},
-                        {title:'二级标题'},
-                        {title:'二级标题'}
-                    ]
+                        {title:'typescript文档'},
+                        {title:'typescript项目'},
+                        {title:'typescript视频'},
+                    ],
+                    isChooseMenu: true
                 }
             ]
             $scope.showOrGo=function(item,$index){
@@ -75,6 +70,7 @@ utilitiesDirctive.directive('menu',[function() {
                             val.checked=false;
                         });
                     }
+                    item.isChooseMenu=!item.isChooseMenu;
                     item.checked=!item.checked;
                 } else {
                     $state.go(item.routerUrl)

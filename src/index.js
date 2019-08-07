@@ -11,6 +11,7 @@ import uiRouter from 'angular-ui-router'
 import coreRouter from './route.js'
 import { coreConfig,runConfig } from './index.config.js'
 import business from './components/business.mod'
+import 'jquery'
 require('./mock/mock.mod')
 import utilities from './utilities/utilities.mod'
 angular.element(document).ready(function () {

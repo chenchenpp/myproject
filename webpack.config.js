@@ -34,7 +34,10 @@ const commonConfig={
             },
             {
                 test: /\.css$/,
-                include: SRCPATH,
+                include: [
+                    SRCPATH,
+                    /(node_modules)/
+                ],
                 use: [
                     {
                         loader: MiniCssExtractPlugin.loader,
