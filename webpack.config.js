@@ -86,6 +86,12 @@ const commonConfig={
             }
         ]
     },
+    resolve: {
+        extensions: ['.js','.json','.vue','css'],
+        alias: {
+            '@': path.resolve(__dirname,'./src')
+        }
+    },
     plugins: [
         new webpack.ProvidePlugin({
             $:'jquery',
