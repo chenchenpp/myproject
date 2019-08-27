@@ -18,9 +18,9 @@ const commonConfig={
         index: './src/index.js'
     },
     output: {
-        path: path.resolve(__dirname,'./build/assets'),//打包到哪个位置
+        path: path.resolve(__dirname,'./build'),//打包到哪个位置
         publicPath: '/',
-        filename: '../[name].bundle.js',    // 入口文件的输出文件
+        filename: '[name].bundle.js',    // 入口文件的输出文件
         chunkFilename: 'js/[id].bundle.js',//依赖的文件打包后的路径
     },
     module: {
@@ -46,13 +46,23 @@ const commonConfig={
                 ],
                 use: [
                     {
+                         /**
+                         * style-loader 主要 将css 插入到head 的style 标签中内联
+                         */
                         loader: MiniCssExtractPlugin.loader,
                         options: {
                             publicPath: '../',
                         },
                     },{
                        loader: 'css-loader',
-                    },
+                    },{
+                        loader: 'postcss-loader',
+                        options: {
+                            plugins: ()=>{
+                                require('autoprefixer')
+                            }
+                        }
+                    }
                     // 'style-loader'
                 ],
             },
@@ -110,7 +120,7 @@ const commonConfig={
         new HtmlWebpackPlugin({
             title: 'smallChen的网站',//生成html文件的标题
             template: path.resolve(__dirname,'./src/index.html'),
-            filename: '../index.html',//输出的html的文件名称
+            filename: 'index.html',//输出的html的文件名称
             hash: true//给生成的 js 文件一个独特的 hash 值
         }),
         new MiniCssExtractPlugin({
