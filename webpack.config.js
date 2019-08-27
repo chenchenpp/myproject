@@ -7,15 +7,21 @@ const HtmlWebpackPlugin= require('html-webpack-plugin')
 const developmentConfig= require('./webpack-config/webpack-dev-config.js')
 const productionConfig= require('./webpack-config/webpack-pro-config.js')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const optimizeCssAssetsPlugin=require('optimize-css-assets-webpack-plugin')
 const commonConfig={
+    optimization: {
+        minimizer: [
+            new optimizeCssAssetsPlugin()//压缩css
+        ]
+    },
     entry: {
         index: './src/index.js'
     },
     output: {
-        path: path.resolve(__dirname,'./build'),
+        path: path.resolve(__dirname,'./build/assets'),//打包到哪个位置
         publicPath: '/',
-        filename: 'bundle.js',    // [name]表示entry每一项中的key，用以批量指定生成后文件的名称
-        chunkFilename: '[id].bundle.js',
+        filename: '../[name].bundle.js',    // 入口文件的输出文件
+        chunkFilename: 'js/[id].bundle.js',//依赖的文件打包后的路径
     },
     module: {
         rules: [
@@ -42,29 +48,27 @@ const commonConfig={
                     {
                         loader: MiniCssExtractPlugin.loader,
                         options: {
-                        // you can specify a publicPath here
-                        // by default it uses publicPath in webpackOptions.output
-                        publicPath: '../',
+                            publicPath: '../',
                         },
+                    },{
+                       loader: 'css-loader',
                     },
-                    'css-loader',
                     // 'style-loader'
                 ],
             },
             {
                 test: /\.less$/,
                 include: SRCPATH,
-                use: [
-                    {
+                use: [{
                         loader: MiniCssExtractPlugin.loader,
                         options: {
-                        // you can specify a publicPath here
-                        // by default it uses publicPath in webpackOptions.output
-                        publicPath: '../',
+                            publicPath: '../',
                         },
-                    },
-                    'css-loader',
-                    'less-loader'
+                    }, {
+                        loader: 'css-loader',
+                    }, {
+                        loader: 'less-loader',
+                    }
                 ],
             },
             {
@@ -80,7 +84,10 @@ const commonConfig={
                 test: /\.(woff|woff2|svg|eot|ttf|otf)$/,
                 include: path.resolve(__dirname, './src/fonts/font/fonts'),
                 use: [{
-                    loader: 'file-loader'
+                    loader: 'file-loader',
+                    options: {
+                        outputPath: 'fonts/'//输出位置
+                    }
                 }]
                 
             }
@@ -93,19 +100,22 @@ const commonConfig={
         }
     },
     plugins: [
-        new webpack.ProvidePlugin({
+        new CleanWebpackPlugin({     //是在每次build之前，清除dist目录
+            cleanOnceBeforeBuildPatterns: [path.resolve(__dirname,'build')]
+        }),
+        new webpack.ProvidePlugin({ //在使用时将不再需要import和require进行引入，直接使用即可。
             $:'jquery',
             _:'underscore'
         }),
         new HtmlWebpackPlugin({
-            filename: './index.html',
-            template: path.resolve(__dirname,'./src/index.html')
-    
+            title: 'smallChen的网站',//生成html文件的标题
+            template: path.resolve(__dirname,'./src/index.html'),
+            filename: '../index.html',//输出的html的文件名称
+            hash: true//给生成的 js 文件一个独特的 hash 值
         }),
-        new CleanWebpackPlugin(),
         new MiniCssExtractPlugin({
             filename: '[name].css',
-            chunkFilename: '[id].css',
+            chunkFilename: 'css/[id].css',//指定css打包到对应位置
         })
     ],
     // devServer: require('./webpack-config/server.dev.config.js')

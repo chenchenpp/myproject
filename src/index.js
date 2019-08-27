@@ -1,7 +1,5 @@
 import "./css/reset.css"
 import "./css/common.css"
-import "./css/tm.pagination.css"
-import "./css/jedate.css"
 require('./fonts/font/css/open-iconic-bootstrap.css')
 import angular from 'angular'
 import ngCookies from 'angular-cookies'
