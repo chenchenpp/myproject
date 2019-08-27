@@ -56,12 +56,7 @@ const commonConfig={
                     },{
                        loader: 'css-loader',
                     },{
-                        loader: 'postcss-loader',
-                        options: {
-                            plugins: ()=>{
-                                require('autoprefixer')
-                            }
-                        }
+                        loader: 'postcss-loader'
                     }
                     // 'style-loader'
                 ],
@@ -76,6 +71,8 @@ const commonConfig={
                         },
                     }, {
                         loader: 'css-loader',
+                    },{
+                        loader: 'postcss-loader'
                     }, {
                         loader: 'less-loader',
                     }
