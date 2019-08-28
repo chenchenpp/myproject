@@ -9,6 +9,7 @@ const productionConfig= require('./webpack-config/webpack-pro-config.js')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const optimizeCssAssetsPlugin=require('optimize-css-assets-webpack-plugin')
 const commonConfig={
+    //https://blog.csdn.net/weixin_43678786/article/details/85788759
     optimization: {
         minimizer: [
             new optimizeCssAssetsPlugin()//压缩css

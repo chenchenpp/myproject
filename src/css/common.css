@@ -178,9 +178,14 @@ i {
   text-align: center
 }
 .nav-menu{
-  min-width: 200px;
-  width: 10%;
+  /* min-width: 10px; */
+  width: 1%;
   height: 100%;
   position: fixed;
-  background: lightblue
+  background: lightblue;
+  transition: width 2s;
+}
+.nav-menu:hover{
+  /* min-width: 200px; */
+  width: 10%
 }

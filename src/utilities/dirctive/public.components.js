@@ -16,8 +16,10 @@ utilitiesDirctive.directive('menu',[function() {
                 {
                     title:"首页",
                     routerUrl: "homePage",
-                },
-                {
+                },{
+                    title: "Canvas小狗",
+                    routerUrl: 'canvasDog'
+                },{
                     title:'VUE',
                     list:[
                         {title:'VUE文档'},
