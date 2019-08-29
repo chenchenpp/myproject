@@ -114,6 +114,17 @@ export default business.controller('canvasDogCtrl',['$scope',function($scope){
             window.requestAnimationFrame(this.walk.bind(this));
         }
     }
+    /**
+     * 小狗自动移动
+     * 1、初始化画布 new canvas()->canvas.getContext('2d)：记住要设置宽高
+     * 2、加载图片，使用异步先将图片加载并存储起来以便后面的使用
+     * 3、将当前图片渲染到画布上 drawImage（资源，裁剪资源的x, cy, 资源的w, 资源的h，位置x，位置y，中心点x, 中心点y）
+     * 4、让图片动起来 window.requestAnimationFrame(),然后每次替换图片
+     * 5、改变位置x值来使得图片移动起来
+     * 6、移动到画布尽头后转头  scale(x,y),当x轴为-1时，并且y是1，这样就是掉头并且大小是1：1的
+     * 7、再上一帧执行完毕要将画布重新刷白，clearRect(位置x,y,画布weight，height)
+     * 8、canvas.save();和canvas.restore();是两个相互匹配出现的，作用是用来保存画布的状态和取出保存的状态的
+     */
     class DogAnimation2{
         constructor(canvas,imgCount){
             this.canvas=canvas;
@@ -133,17 +144,10 @@ export default business.controller('canvasDogCtrl',['$scope',function($scope){
             }
         }
         async start(){
-            await this.loadResourceImages();
-            console.log(this.canvas.width,this.dogPictures[0].naturalWidth/2)
+            await this.loadResourceImages();//加载图片
             this.dog.dogStopX=this.canvas.width-this.dogPictures[0].naturalWidth/2;
-            this.recordMousePosition();
             window.requestAnimationFrame(this.walking.bind(this));
         }
-        recordMousePosition(){
-            window.addEventListener('mousemove', event =>{
-                // console.log(event.clientX) 当前鼠标位置
-            })
-        };
         loadResourceImages(){
             let imgArr=[];
             for(let i=0;i<this.IMG_COUNT;i++){
@@ -153,10 +157,8 @@ export default business.controller('canvasDogCtrl',['$scope',function($scope){
                     img.onload=()=>resolve(img)
                 }))
             }
-            
             return new Promise(resolve=>{
                 Promise.all(imgArr).then(dogPictures=>{
-                    console.log(this,dogPictures)
                     this.dogPictures=dogPictures;
                     resolve();
                 })
@@ -172,18 +174,27 @@ export default business.controller('canvasDogCtrl',['$scope',function($scope){
             }
             
             this.dogPosture=++this.dogPosture%(this.IMG_COUNT-1);//变换图片
+            // 获取当前图片的宽高
             let currentImg=this.dogPictures[this.dogPosture+1];
             let naturalWidth=currentImg.naturalWidth;
             let naturalHeight=currentImg.naturalHeight;
+            // 清除上一个画布
             this.canvasTxt.clearRect(0,0,this.canvas.width,this.canvas.height);
             this.canvasTxt.save();
+            // 走的距离
+            let dogPositionX=0;
             this.dogPositionX=this.dogPositionX+this.dog.dogStep;
-            console.log(this.dogPositionX)
-            if(this.dogPositionX>this.canvas.width){
-                this.canvasTxt.scale(-1,1);
-                this.dogPositionX=-this.dogPositionX
+            dogPositionX=this.dogPositionX;
+            // 当走到最右边后  让其转头
+            if(this.dogPositionX>this.canvas.width-naturalWidth/2){
+                dogPositionX=-(this.canvas.width-(this.dogPositionX-this.canvas.width+naturalWidth/2));
+                this.canvasTxt.scale(-1,1);//掉头关键代码
             }
-            this.canvasTxt.drawImage(currentImg,0,0,naturalWidth,naturalHeight,this.dogPositionX,20,naturalWidth/2,naturalHeight/2);
+            // 走过一个来回后初始化
+            if(this.dogPositionX>this.canvas.width*2-naturalWidth){
+                this.dogPositionX=0;
+            }
+            this.canvasTxt.drawImage(currentImg,0,0,naturalWidth,naturalHeight,dogPositionX,20,naturalWidth/2,naturalHeight/2);
             this.canvasTxt.restore();
             this.lastWalkingTime=now;
             window.requestAnimationFrame(this.walking.bind(this));
