@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "pro": "webpack --env production --config ./webpack.config.js",
-    "dev": "webpack-dev-server --env development --config ./webpack.config.js --devtool eval --open"
+    "dev": "webpack --env production --config ./webpack.config.js",
+    "start": "webpack-dev-server --env development --config ./webpack.config.js --devtool eval --open"
   },
   "author": "chenPeng",
   "license": "ISC",

@@ -20,6 +20,9 @@ utilitiesDirctive.directive('menu',[function() {
                     title: "Canvas小狗",
                     routerUrl: 'canvasDog'
                 },{
+                    title: '骨架屏',
+                    routerUrl: 'skeletonScreen'
+                },{
                     title:'VUE',
                     list:[
                         {title:'VUE文档'},
